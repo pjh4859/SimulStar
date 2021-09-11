@@ -1,0 +1,2 @@
+# SimulStar
+Star Tracker Simulator
