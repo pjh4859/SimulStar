@@ -1,6 +1,6 @@
 scat SCAT WCSTools 3.9.5, 30 March 2017, Jessica Mink (jmink@cfa.harvard.edu)
  BSC   0.0000000   0.0000000 J2000 r= 180.00 at epoch 2000.0000
-BSC_number    RA2000     Dec2000     Mag Type  Arcsec
+ BSC_number    RA2000     Dec2000     Mag Type  Arcsec
   2491  101.2870833 -16.7161111  -1.46  A1  362895.27
   2326   95.9879167 -52.6958333  -0.72  F0  337049.17
   5340  213.9154167  19.1825000  -0.04  K1  509790.59
