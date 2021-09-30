@@ -25,11 +25,14 @@ function [outputCatalog] = Select_Stars(inputCatalog,inputParam)
         DECmax = DECmax - 180;
     end
     
-    
+    n=uint32(1);
+
     for i=1:size(inputCatalog,1)
 %         if(inputCatalog(i,2) >= RAmin && inputCatalog(i,2) <= RAmax && inputCatalog(i,3) >= DECmin && inputCatalog(i,3) <= DECmax)
-        if()  
-            outputCatalog = inputCatalog(i,:);
+        if(abs(mod(inputCatalog(i,2)+540.0 - inputParam.RA, 360.0)-180.0) <= Radius)  
+%         if(cos(inputCatalog(i,2)-inputParam.RA)>=cos(Radius))
+            outputCatalog(n,:) = inputCatalog(i,:);
+            n = n+1;
         end
     end
     
