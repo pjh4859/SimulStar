@@ -18,11 +18,17 @@ function [outputCatalog] = Select_Stars(inputCatalog,inputParam)
     if (RAmax > 360)
         RAmax = RAmax -360;
     end
-    
+    if (DECmin < -90 )
+        DECmin = DECmin + 180;
+    end
+    if (DECmax > 90 )
+        DECmax = DECmax - 180;
+    end
     
     
     for i=1:size(inputCatalog,1)
-        if(inputCatalog(i,2) >= RAmin && inputCatalog(i,2) <= RAmax && inputCatalog(i,3) >= DECmin && inputCatalog(i,3) <= DECmax)
+%         if(inputCatalog(i,2) >= RAmin && inputCatalog(i,2) <= RAmax && inputCatalog(i,3) >= DECmin && inputCatalog(i,3) <= DECmax)
+        if()  
             outputCatalog = inputCatalog(i,:);
         end
     end
