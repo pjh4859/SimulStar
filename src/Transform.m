@@ -5,7 +5,7 @@ classdef Transform
 %             theta = RA*pi/180.0;
 %             phi  = (90.0-DEC)*pi/180.0;
             theta = RA;
-            phi  = 90.0-DEC;
+            phi  = 90.0 - DEC;
         end
         
         function [Vector] = Celestial2Cartesian(RA, DEC)
