@@ -24,13 +24,11 @@ classdef Transform
             Vector = [U,V,W];
         end
         
-        % Inner product of R which points center of the screen and S which points star 
-        % from the origin
-        function Output = RdotS(phi_Center, theta_Center, phi_Star, theta_Star)
-            Output =  sind(phi_Star)*cosd(theta_Star)*sind(phi_Center)*cosd(theta_Center) ...
-            + sind(phi_Star)*sind(theta_Star)*sind(phi_Center)*sind(theta_Center) ...
-            + cosd(phi_Star)*cosd(phi_Center);            
+        function [M] = Cel2Sensor_Matrix(RA, DEC, ROT)
+            a1 =
+            M = [];                      
         end
+        
         
     end
 end
