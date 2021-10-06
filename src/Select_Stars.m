@@ -17,6 +17,7 @@ function [outputCatalog] = Select_Stars(inputCatalog,inputParam)
 %         StarVector = Transform.Celestial2Cartesian(RA_Star,DEC_Star);  
         [x,y,z] = sph2cart(RA_Star*pi/180,DEC_Star*pi/180,1);
         StarVector = [x,y,z];
+        disp(StarVector);
 %       중심점과 별 벡터 내적.
         Check = dot(CenterVector,StarVector);
 
