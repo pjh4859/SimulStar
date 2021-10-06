@@ -30,13 +30,19 @@ classdef Transform
             psi = inputParam.ROT;
             [x,y,z] = sph2cart(Star_RA*pi/180,Star_DEC*pi/180,1);
             vector = [x,y,z];
-            
+
             q1 = [cosd(phi/2), 0, 0, sind(phi/2)];
             q2 = [cosd(theta/2), sind(theta/2), 0, 0];
             q3 = [cosd(psi/2), 0, 0, sind(psi/2)];
+
             temp = quatmultiply(q1,q2);
             q = quatmultiply(temp,q3);
-            M = quatrotate(q,vector);                      
+
+            M = quatrotate(q,vector);           
+%             For Debuging
+            fileID = fopen('../StarVector_Transformed.txt','a');
+            fprintf(fileID,"%f %f %f\n",M(1),M(2),M(3));
+            fclose(fileID);
         end
         
         
