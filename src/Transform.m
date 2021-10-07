@@ -27,7 +27,7 @@ classdef Transform
         function [M] = QuaternionRotate(inputParam, Star_RA, Star_DEC)
             phi = inputParam.RA - 90;
             theta = inputParam.DEC - 90;
-            psi = inputParam.ROT;
+            psi = -inputParam.ROT + 90;
             [x,y,z] = sph2cart(Star_RA*pi/180,Star_DEC*pi/180,1);
             vector = [x,y,z];
 

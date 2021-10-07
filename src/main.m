@@ -1,5 +1,8 @@
 function main()
-% input parameters
+%     Erase Debuging .txt
+    delete '../StarVector_Transformed.txt';
+    delete '../StarVector.txt';
+%     input parameters
     inputParam = struct('RA',85,'DEC',0,'ROT',0,'FoVx',20,'FoVy',20);
 %     txt 파일에서 데이터 읽기
     inputCatalog = ReadCatalog.array();

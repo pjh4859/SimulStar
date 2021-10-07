@@ -19,10 +19,9 @@ function [outputCatalog] = SelectStars(inputCatalog,inputParam)
         StarVector = [x,y,z];
 %       중심점과 별 벡터 내적.
         Check = dot(CenterVector,StarVector);
-
-
-
-
+        
+%         밝기등급 제한
+        if (inputCatalog(i,4) <= 3.4)
 %       내적을 이용해서 현재 확인하는 별 좌표가 우리가 원하는 범위 내에 있는지 확인.
         if (Check >= cosd(Radius))
 %             For Debuging
@@ -33,6 +32,7 @@ function [outputCatalog] = SelectStars(inputCatalog,inputParam)
 %             fprintf("%f %f %f\n", StarVector(1),StarVector(2),StarVector(3));
             outputCatalog(n,:) = inputCatalog(i,:);
             n = n+1;
+        end
         end
     end   
 end
