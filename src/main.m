@@ -17,7 +17,13 @@ function img =  main(Params)
 %     input parameters
     [inputParam, inputPixel] = Parameters(Params);
 %     txt 파일에서 데이터 읽기
-    inputCatalog = ReadCatalog.array();
+    if isdeployed
+        filepath = fullfile(ctfroot,'StarmapSimGUI','BSCatalog.txt');
+        inputCatalog = ReadCatalog.array(filepath);
+    else
+        inputCatalog = ReadCatalog.array();
+    end
+%     inputCatalog = ReadCatalog.array();
 %     원하는 별 고르기
     outputCatalog = SelectStars(inputCatalog, inputParam);
 %     고른 별 StarTracker Coordinate로 좌표 변환하기
