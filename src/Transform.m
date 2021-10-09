@@ -1,13 +1,13 @@
-classdef Transform 
-%좌표계 변환 클래스
-    methods     ( Static = true )        
+classdef Transform
+    %좌표계 변환 클래스
+    methods     ( Static = true )
         function [theta, phi] = RADEC2THETAPI(RA,DEC)
-%             theta = RA*pi/180.0;
-%             phi  = (90.0-DEC)*pi/180.0;
+            %             theta = RA*pi/180.0;
+            %             phi  = (90.0-DEC)*pi/180.0;
             theta = RA;
             phi  = 90.0 - DEC;
         end
-        
+
         function [Vector] = Celestial2Cartesian(RA, DEC)
             U = cosd(RA)*cosd(DEC);
             V = sind(RA)*cosd(DEC);
@@ -23,8 +23,10 @@ classdef Transform
             W = sin(DEC);
             Vector = [U,V,W];
         end
-        
+
         function [M] = QuaternionRotate(inputParam, Star_RA, Star_DEC)
+            global Debugmode
+
             phi = inputParam.RA - 90;
             theta = inputParam.DEC - 90;
             psi = inputParam.ROT;
@@ -38,12 +40,16 @@ classdef Transform
             temp = quatmultiply(q1,q2);
             q = quatmultiply(temp,q3);
 
-            M = quatrotate(q,vector);           
-%             For Debuging
-            fileID = fopen('../StarVector_Transformed.txt','a');
-            fprintf(fileID,"%f %f %f\n",M(1),M(2),M(3));
-            fclose(fileID);
-        end    
+            M = quatrotate(q,vector);
+            %             For Debuging
+            %             if feature('IsDebugMode')
+            if Debugmode
+                fileID = fopen('../StarVector_Transformed.txt','a');
+                fprintf(fileID,"%f %f %f\n",M(1),M(2),M(3));
+                fclose(fileID);
+            end
+            %             end
+        end
     end
 end
 
