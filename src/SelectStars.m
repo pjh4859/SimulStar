@@ -26,7 +26,7 @@ for i=1:size(inputCatalog,1)
     Check = dot(CenterVector,StarVector);
     %       밝기 읽기.
     Magnitude = inputCatalog(i,4);
-
+    
     %         밝기등급 제한
     if (Magnitude <= inputParam.MagLimit)
         %       내적을 이용해서 현재 확인하는 별 좌표가 우리가 원하는 범위 내에 있는지 확인.
@@ -37,20 +37,26 @@ for i=1:size(inputCatalog,1)
                 fileID2 = fopen('../StarVector.txt','a');
                 fprintf(fileID2,"%f %f %f\n",x,y,z);
                 fclose(fileID2);
-            end
+            end            
             %             end
+            
             outputCatalog(n,:) = inputCatalog(i,:);
+            if Debugmode
+                fileID = fopen('../outputCatalog.txt','a');
+                fprintf(fileID,'%d %f %f %f %s %f\r\n', outputCatalog(n,:));
+                fclose(fileID);
+            end
             n = n+1;
         end
     end
-
+    
     %       아무 별도 해당되지 않을 경우 예외처리.
     if (i == size(inputCatalog,1))
         if (~size(outputCatalog,1))
             outputCatalog = [NaN,NaN,NaN,NaN,NaN,NaN];
         end
     end
-
+    
 end
 end
 
