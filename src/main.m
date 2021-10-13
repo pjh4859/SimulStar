@@ -4,7 +4,7 @@ arguments
         'PixelNum_X',1024,'PixelNum_Y',1024, 'sigma',1,'K1',1500,'K2',0.6,'K3',1.2,'ActiveBlur',true,...
         'MaxNoise',1,'MinNoise',0,'ActiveNoise',false,...
         'MissingMax',1,'MissingMin',1,'ActiveMissing',false,'MissingNum',NaN,...
-        'RandObjMaxNum',3,'RandObjMinNum',1,'RandObjMaxRadi',1,'RandObjMinRadi',1,'ActiveRandObj',false)
+        'RandObjMaxNum',3,'RandObjMinNum',1,'RandObjMaxRadi',1,'RandObjMinRadi',1,'ActiveRandObj',false, 'RandObjNum',NaN);
     
 end
 global Debugmode;
@@ -26,6 +26,6 @@ StarPlaneMatrix = Transform2Starmap(outputCatalog, inputParam);
 %     Starmap projection
 StarmapPosiMAT = StarmapProjection(StarPlaneMatrix, inputPixel, inputParam, inputImage);
 %     make image
-img = MakeImage(StarmapPosiMAT, inputImage);
+img = MakeImage(StarmapPosiMAT, inputImage, inputPixel);
 
 end
