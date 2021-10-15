@@ -1,4 +1,4 @@
 # SimulStar
 Star Tracker Simulator
-## StarImageMaker
+## StarmapSIM(StarImageMaker)
 Using Bright Star Catalog
