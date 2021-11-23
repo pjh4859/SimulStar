@@ -15,7 +15,6 @@ if inputImage.ActiveRandObj == 1
     img = MakeObject(img, inputImage,inputPixel);
 end
 
-
 image = uint8(img);
 end
 
