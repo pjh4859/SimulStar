@@ -1,5 +1,7 @@
 classdef Transform
-    %좌표계 변환 클래스
+    % 좌표계 변환 클래스
+    % # 구성 목록
+    % 1. RADEC2THETAPI: 
     methods     ( Static = true )
         function [theta, phi] = RADEC2THETAPI(RA,DEC)
             %             theta = RA*pi/180.0;
