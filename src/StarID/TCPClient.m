@@ -1,7 +1,7 @@
 function [client] = TCPClient(ServerAddress,port)
-%TCPCLIENT 이 함수의 요약 설명 위치
-%   자세한 설명 위치
+%TCPCLIENT tcpip client를 생성
+%    tcpip client를 생성
 
-client = tcpclient(ServerAddress,port);
+client = tcpclient(ServerAddress,port); 
 end
 
