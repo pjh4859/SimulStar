@@ -1,0 +1,79 @@
+function [Kvector,outputArg1] = Make_Kvector(FoVx, FoVy, ThresholdMag)
+%MAKE_KVECTOR
+%   FOV와 별의 밝기등급에 대한 K-vector 가 없으면 생성함.
+% Determine where your m-file's folder is.
+folder = fileparts(which('Make_Kvector.m')); 
+% Add that folder plus all subfolders to the path.
+addpath(genpath(folder));
+
+filepath = '../BSCatalog/';
+filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+
+Svector = [];
+Tempvector = [];
+Kvector = [];
+NumberMatch = []; 
+
+if isfile(filepath+filename)
+    outputArg1 = 0;
+else
+    outputArg1 = 1;
+    BSCatalogpath = filepath+"BSCatalog.txt";
+    BSCatalogData = readmatrix(BSCatalogpath);    
+    FoV = sqrt(FoVx^2 + FoVy^2);
+    
+    n=1;
+
+    for i=1:size(BSCatalogData,1)
+        for j=1:size(BSCatalogData,1)
+            if i ~= j
+                if i < j
+                    RA_Star1 = BSCatalogData(i,2);
+                    DEC_Star1 = BSCatalogData(i,3);
+                    RA_Star2 = BSCatalogData(j,2);
+                    DEC_Star2 = BSCatalogData(j,3);
+                    %       별의 벡터 구하기.
+                    [x1,y1,z1] = sph2cart(RA_Star1*pi/180, DEC_Star1*pi/180,1);
+                    [x2,y2,z2] = sph2cart(RA_Star2*pi/180, DEC_Star2*pi/180,1);
+
+                    StarVector1 = [x1,y1,z1];
+                    StarVector2 = [x2,y2,z2];
+
+                    %       두 별의 벡터 내적.
+                    StarDot = dot(StarVector1, StarVector2);
+                    %       두 별의 밝기 읽기.
+                    Magnitude1 = BSCatalogData(i,4);
+                    Magnitude2 = BSCatalogData(j,4);
+                    %       두 별의 밝기등급 제한
+                    if (Magnitude1 <= ThresholdMag && Magnitude2 <= ThresholdMag)
+                        %       내적을 이용해서 두 별의 각거리가 FoV 내부에 있는지 확인.
+                        if (StarDot >= cosd(FoV))
+                            Svector(n,1) = StarDot;
+                            Svector(n,2) = i;
+                            Svector(n,3) = j;
+                            % 여기서는 각 행마다 i 와 j 에 해당하는 별의 카탈로그상의 번호를 저장했는데,
+                            % 다른 방식으로는 아얘 번호에 따른 
+                            Svector(n,4) = BSCatalogData(i,1);
+                            Svector(n,5) = BSCatalogData(j,1);
+                            n = n+1; 
+                        end
+                    end 
+                end
+            end
+        end
+    end
+%   아무 별도 해당되지 않을 경우 예외처리.
+    if (~size(Svector,1))
+        Svector = [NaN,NaN,NaN,NaN,NaN];
+    end
+%     Svector 의 1번 열에 대해 오름차순으로 정렬.
+    Tempvector = sortrows(Svector, 1);
+    
+end
+writematrix(Tempvector,filepath+filename+"2",'Delimiter','tab');
+writematrix(Svector,filepath+filename,'Delimiter','tab');
+% fileID = fopen(filepath+filename,'w');
+% fprintf(fileID,'%f %d %d %d %d\r\n', Kvector(:,:));
+% fclose(fileID);
+    
+end

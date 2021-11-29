@@ -1,28 +1,3 @@
-% function [LabeledMatrix] = RegionLabeling(StarMat, PixX, PixY, Threshold)
-% %REGIONLABELING 
-% %  별 이미지 매트릭스에서 스레스홀드 이상의 밝기를 가진 별들만 라벨링해서 새로운 배열을 만든다.
-% 
-% % 넘버링될 별 라벨 번호.
-% StarNum = 1;
-% % padding을 위해 들어온 매트릭스 크기보다 가로, 세로 2씩 더 큰 zero 배열을 만든다.
-% tempMatrix = zeros(PixY+2, PixX+2);
-% % 위에서 만든 zero 배열 가운데에 원래 매트릭스를 넣는다.
-% tempMatrix(2:PixY + 2 - 1, 2:PixX + 2 - 1) = StarMat;
-% 
-% for i = 1:PixY
-%     for j = 1:PixX
-%         if tempMatrix(1+i, 1+j) >= Threshold
-%             if tempMatrix(1+i, 1+j)
-% 
-%             end
-% 
-%         end
-% 
-%     end
-% end
-% 
-% end
-
 function [ labels, ObjNum ] = RegionLabeling( data, Threshold)
 %anodeg_bwlable binary image labeling
 % Labels a binary image through 8-point connectivity without the need 
@@ -77,10 +52,17 @@ for i = 2:x                       % for each row
         end
     end
 end
-
-if numel(linked) > x*y/250 % 약 픽셀 수의 0.4% 이상 linked 어레이가 생기면 Threshold 를 더 높여서 linked 를 줄임.
+% 약 픽셀 수의 0.4% 이상 linked 어레이가 생기면 Threshold 를 더 높여서 linked 를 줄임
+% 구간을 나누어서 linked 어레이가 너무 많으면 Threshold 를 1이 아닌 2씩 증가시킴.
+if (numel(linked) > x*y/250) && (numel(linked) <= x*y/100)
     ChangeThreshold = 1;
     Threshold = Constrain(Threshold + 1, 255);
+    if Threshold == 255
+        ChangeThreshold = 0;
+    end
+elseif (numel(linked) > x*y/100)
+    ChangeThreshold = 1;
+    Threshold = Constrain(Threshold + 2, 255);
     if Threshold == 255
         ChangeThreshold = 0;
     end
@@ -135,23 +117,40 @@ for k = 1:K
 end
 
 ObjNum = max(labels, [], 'all');
-%% 달같이 많은 수의 픽셀을 먹은 물체 빼기.
-BigPixCount = 0;
-BigPixArr = [];
+%% 별보다 작은 픽셀의 물체 빼기.
+% 노이즈같이 너무 적은 픽셀을 가진 별은 제거.
+
+
+%% 별이라 판단되지 않는 물체 제거.
+% 노이즈같이 너무 적은 픽셀을 가진 물체와 
+% 달같이 너무 많은 수의 픽셀을 가진 물체 빼기.
+
+%%% 수정가능성 있음.
+
+XPixCount = 0;
+XPixArr = [];
+
+% 물체의 픽셀 갯수를 가늠해 라벨을 0으로 변환.
 for z = 1:ObjNum
-    if numel(find(labels == z)) > 10*10
-        BigPixArr = [BigPixArr, z];
+    if (numel(find(labels == z)) > (x/100)*(y/100)) || (numel(find(labels == z)) < (2)*(2))
+        XPixArr = [XPixArr, z];
         labels(labels == z) = 0;        
     end
+%     if numel(find(labels == z)) < (2)*(2)
+%         XPixArr = [XPixArr, z];
+%         labels(labels == z) = 0;        
+%     end
 end
 
-for z2 = BigPixArr
-    tempArr = find(labels > z2 - BigPixCount);
+% 빠진 물체때문에 사라진 라벨링 넘버를 맞춰줌.
+for z2 = XPixArr
+    tempArr = find(labels > z2 - XPixCount);
     labels(tempArr) = labels(tempArr) - 1;
-    BigPixCount = BigPixCount + 1;
+    XPixCount = XPixCount + 1;
 end
 
-ObjNum = ObjNum - numel(BigPixArr);
+% 오브젝트 갯수 수정.
+ObjNum = ObjNum - numel(XPixArr);
 
 end  
 
