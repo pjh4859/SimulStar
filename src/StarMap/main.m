@@ -1,4 +1,6 @@
 function [img] =  main(Params)
+% MAIN
+% 별 지도를 그리기 위한 프로그램 Main 함수.
 arguments
     Params = struct('RA',85,'DEC',0,'ROT',0,'FoVx',30,'FoVy',30,'Mag',3.5,...
         'PixelNum_X',1024,'PixelNum_Y',1024, 'sigma',1,'K1',1500,'K2',0.6,'K3',1.2,'ActiveBlur',true,...

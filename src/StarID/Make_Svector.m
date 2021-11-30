@@ -1,18 +1,22 @@
-function [Kvector,outputArg1] = Make_Kvector(FoVx, FoVy, ThresholdMag)
+function [Kvector,outputArg1] = Make_Svector(FoVx, FoVy, ThresholdMag)
 %MAKE_KVECTOR
 %   FOV와 별의 밝기등급에 대한 K-vector 가 없으면 생성함.
-% Determine where your m-file's folder is.
-folder = fileparts(which('Make_Kvector.m')); 
-% Add that folder plus all subfolders to the path.
-addpath(genpath(folder));
+
+% % Determine where your m-file's folder is.
+% folder = fileparts(which('Make_Kvector.m')); 
+% % Add that folder plus all subfolders to the path.
+% addpath(genpath(folder));
 
 filepath = '../BSCatalog/';
 filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+filename2 = "Svector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+filename3 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
 
 Svector = [];
 Tempvector = [];
 Kvector = [];
-NumberMatch = []; 
+NumberMatch = {}; 
+NumberMatch2 = {}; 
 
 if isfile(filepath+filename)
     outputArg1 = 0;
@@ -48,13 +52,21 @@ else
                     if (Magnitude1 <= ThresholdMag && Magnitude2 <= ThresholdMag)
                         %       내적을 이용해서 두 별의 각거리가 FoV 내부에 있는지 확인.
                         if (StarDot >= cosd(FoV))
+                            % Svector의 형상 
+                            % [두 별의 cos각, i인덱스, j인덱스]
                             Svector(n,1) = StarDot;
                             Svector(n,2) = i;
                             Svector(n,3) = j;
                             % 여기서는 각 행마다 i 와 j 에 해당하는 별의 카탈로그상의 번호를 저장했는데,
-                            % 다른 방식으로는 아얘 번호에 따른 
-                            Svector(n,4) = BSCatalogData(i,1);
-                            Svector(n,5) = BSCatalogData(j,1);
+                            % 다른 방식으로는 아얘 번호에 다른 파일을 만들어서 저장해놓을 수 있겠음. 
+                            % 그 편이 파일의 용량 크기를 많이 줄일 수 있을 듯.
+                            % NumberMatch의 형상
+                            % [i 또는 j 인덱스번호, 카탈로그의 별 번호]
+                            % 할 까 했는데, 생각해보니 그냥 i랑 j 인덱스가 별 카탈로그의 줄 수였음. 
+%                             NumberMatch{n} = [i,BSCatalogData(i,1)];
+%                             NumberMatch2{n} = [j,BSCatalogData(j,1)];
+%                             Svector(n,4) = BSCatalogData(i,1);
+%                             Svector(n,5) = BSCatalogData(j,1);
                             n = n+1; 
                         end
                     end 
@@ -65,15 +77,19 @@ else
 %   아무 별도 해당되지 않을 경우 예외처리.
     if (~size(Svector,1))
         Svector = [NaN,NaN,NaN,NaN,NaN];
-    end
+    end   
+    
 %     Svector 의 1번 열에 대해 오름차순으로 정렬.
     Tempvector = sortrows(Svector, 1);
     
+    [Kvector, a1, a0] = Make_Kvector(Tempvector);
+    aArr = [a1,a0];
+    
+    writematrix(Kvector,filepath+filename,'Delimiter','tab');
+    writematrix(Tempvector,filepath+filename2,'Delimiter','tab');
+    writematrix(aArr,filepath+filename3,'Delimiter','tab');    
+    close('all');
+    
 end
-writematrix(Tempvector,filepath+filename+"2",'Delimiter','tab');
-writematrix(Svector,filepath+filename,'Delimiter','tab');
-% fileID = fopen(filepath+filename,'w');
-% fprintf(fileID,'%f %d %d %d %d\r\n', Kvector(:,:));
-% fclose(fileID);
     
 end
