@@ -14,22 +14,23 @@ ThresholdMag = 5;
 [Labels, StarNum] = RegionLabeling(StarMat, Threshold);
 
 % 라벨링된 별들을 가지고 중심점을 구함.
+% 여기서 나온 StarCenter 배열의 Col index 는 별의 Label 번호와 같음.
 [StarCenter] = StarCentroiding(StarMat,Labels,StarNum);
 
 % 별 중심 고른 것을 UI 에 보여줌.
 MakeStarCenterImage(UIAxes, StarCenter);
 
 % Kvector 를 만들기 위한 함수로 이미 있다면 하는 기능은 없음.
-% Make_Svector(Parmas.FoVx, Params.FoVy, ThresholdMag);
+Make_Svector(Params.FoVx, Params.FoVy, ThresholdMag);
 
 % k벡터, 별 카탈로그, a0,a1 값 txt 파일을 읽음.
 [BSCatalog, Kvector, a1, a0] = ReadFiles(Params.FoVx, Params.FoVy, ThresholdMag);
 
 % 파라미터 스트럭쳐에 a1, a0 추가.
-Params.a1 = a1;
-Params.a0 = a0;
+Params.a1 = double(a1);
+Params.a0 = double(a0);
 
 % 이제 별들의 중심점들 가지고 별 페어의 각도를 구하며, 피라미드 알고리즘 구동.
-[DeterminedStarMap] = PyramidAlgo(Kvector, StarCenter, Params);
+[DeterminedStarMap] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Params);
 end
 

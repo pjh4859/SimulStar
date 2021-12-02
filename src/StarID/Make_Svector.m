@@ -24,7 +24,7 @@ else
     outputArg1 = 1;
     BSCatalogpath = filepath+"BSCatalog.txt";
     BSCatalogData = readmatrix(BSCatalogpath);    
-    FoV = sqrt(FoVx^2 + FoVy^2);
+    FoV = sqrt(double(FoVx)^2 + double(FoVy)^2);
     
     n=1;
 

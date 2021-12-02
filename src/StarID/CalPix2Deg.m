@@ -2,9 +2,14 @@ function [OutAngle] = CalPix2Deg(FoVx,FoVy,pixX,pixY,Star1,Star2)
 %CALPIX2DEG
 %   픽셀간의 좌표에서 각을 구하는 함수.
 
-% 원형의 FoV를 구함.
-FoV = sqrt(FoVx^2+FoVy^2);
+% uint8 에서 double 형으로.
+FoVx = double(FoVx);
+FoVy = double(FoVy);
+pixX = double(pixX);
+pixY = double(pixY);
 
+% 원형의 FoV를 구함.
+FoV = sqrt((FoVx)^2+(FoVy)^2);
 % Focal Length 를 구함
 f = cosd(FoV/2);
 
@@ -18,6 +23,6 @@ temp = dot(Star1Vector,Star2Vector);
 temp = temp/(norm(Star1Vector) * norm(Star2Vector));
 Degree = acosd(temp);
 
-OutAngle = Degree;
+OutAngle = [Degree, Star1(3), Star2(3)];
 end
 
