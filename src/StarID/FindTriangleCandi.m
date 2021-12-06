@@ -12,15 +12,18 @@ epsilon = 10/3600;
 for i=1:size(StarPairAngle,1) %Size must be 3;
     Lbot = floor((cosd(StarPairAngle(i,1) + 2*epsilon) - a0)/a1);
     Ltop = ceil((cosd(StarPairAngle(i,1) - 2*epsilon) - a0)/a1);
-    Kstart = Kvector(Lbot)+1;
-    Kend = Kvector(Ltop);
+    Kstart = Kvector(Lbot,1)+1;
+    Kend = Kvector(Ltop,1);
     switch i
         case 1
-            StarCandi1 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+%             StarCandi1 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+            StarCandi1 = Kvector(Kstart:Kend,:);
         case 2
-            StarCandi2 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+%             StarCandi2 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+            StarCandi2 = Kvector(Kstart:Kend,:);
         case 3
-            StarCandi3 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+%             StarCandi3 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
+            StarCandi3 = Kvector(Kstart:Kend,:);
     end
 end
 

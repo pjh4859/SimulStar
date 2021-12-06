@@ -1,7 +1,9 @@
-function [outputArg1,outputArg2] = UniqueSol(inputArg1,inputArg2)
-%UNIQUESOL 이 함수의 요약 설명 위치
-%   자세한 설명 위치
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+function [Unique] = UniqueSol(MatchPyramid)
+%UNIQUESOL
+%   배열이 한 줄인지 확인.
+Unique = 0;
+if size(MatchPyramid,1) == 1    
+    Unique = 1;
+end
 end
 

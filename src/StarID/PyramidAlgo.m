@@ -5,12 +5,14 @@ function [DeterminedStarMap] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Param
 % StarCenter 의 별들 중 세개씩 골라 서로간의 각을 구함.
 StarNum = size(StarCenter,1);
 StarPairAngle = [];
+referStarPairAngle = [];
 StarCandi1 = [];
 StarCandi2 = [];
 StarCandi3 = [];
 TriFlag = 0;
 PyrFlag = 0;
 
+DeterminedStarMap = [];
 
 count = 0;
 % StarNum Combination 3 Loop.
@@ -43,13 +45,31 @@ for dj = 1:(StarNum-2)
                 % MatchTri 배열의 형태 [별 라벨i,j,k, K벡터상 별 인덱스 A,B,C]
                 [MatchTri] = MatchTriangle(TriStar, BSCatalog, StarPairAngle);
                 
-                r = SelectReferenceStar(i,j,k);         
-                FindPyramid();
+                % Refernce Star 를 고름.
+                r = SelectReferenceStar(i,j,k,StarNum);  
+%                 r=17;
+                % 새로 선택한 r 별과 콤비네이션 어레이를 만든 후 각각의 각거리를 구함.
+                combiArr2 = [i,r;j,r;k,r];
+                for q = 1:size(combiArr2) % Size Must be 3.
+                    % Star1 or Star2 배열의 모양. [이미지 X좌표, 이미지 Y좌표, 별 라벨번호]
+                    Star1 = [StarCenter(combiArr2(q,1),1), StarCenter(combiArr2(q,1),2), combiArr2(q,1)];
+                    Star2 = [StarCenter(combiArr2(q,2),1), StarCenter(combiArr2(q,2),2), combiArr2(q,2)];
+                    % 픽셀위치에서 각거리를 구한다.
+                    % OutAngle 배열의 모양. [Star1과 Star2의 각거리, Star1의 라벨 번호, Star2의 라벨 번호]
+                    [OutAngle] = CalPix2Deg(Params.FoVx,Params.FoVy,Params.pixX,Params.pixY, Star1, Star2);
+                    % 각들을 배열로 추가함.
+                    referStarPairAngle = [referStarPairAngle; OutAngle];                
+                end
+                % 이전에 구한 트라이앵글과 reference star 를 통해 별을 찾음.
+                [MatchPyramid, PyrFlag] = FindPyramid(MatchTri,Kvector,referStarPairAngle,Params.a1,Params.a0,r);
+                
                 if PyrFlag
-                    if UniqueSol()
+                    if UniqueSol(MatchPyramid)
+                        DeterminedStarMap = [];
                         return;
                     end
                 end
+                referStarPairAngle = [];
             end
                 
             count = count+1;
@@ -57,6 +77,7 @@ for dj = 1:(StarNum-2)
         end
     end
 end
+
 
 %Purge specu;ar solution
 

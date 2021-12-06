@@ -5,7 +5,8 @@ function MakeStarCenterImage(UIAxes,StarCenter)
 [row,col] = size(StarCenter);
 racX = 24;
 racY = 24;
-hold(UIAxes);
+hold(UIAxes, 'on');
+% hold on;
 
 for i= 1:row
     rectangle(UIAxes, 'Position', [StarCenter(i,1) - racX/2, StarCenter(i,2) - racY/2 , racX, racY],'EdgeColor','r');
