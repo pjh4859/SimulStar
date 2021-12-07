@@ -48,11 +48,8 @@ end
 % reference Star 가 하나만 나오는지 체크.
 if size(MatchR,1) == 1
     PyrFlag = 1;
+    %[i j k r I J K R]모양으로 바꿈.
+    MatchPyramid = [MatchTri(MatchR(1,3),1:3), MatchR(1,1), MatchTri(MatchR(1,3),4:6), MatchR(1,2)];
 end
-
-if PyrFlag == 1
-    MatchPyramid = [MatchTri(MatchR(1,3),:),MatchR(1,1),MatchR(1,2)];
-end
-
 end
 

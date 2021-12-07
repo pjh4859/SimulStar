@@ -1,8 +1,12 @@
-function [outputArg1,outputArg2] = main_AttiDet(inputArg1,inputArg2)
+function [AttiQuaternion] = main_AttiDet(ImageVector,CatalogVector)
 %MAIN_ATTIDET
+% 자세결정 Main함수
 
-[Kvector,outputArg1] = Make_Svector(FoVx, FoVy, ThresholdMag);
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+% Determine where your m-file's folder is.
+folder = fileparts(which('main_AttiDet.m')); 
+% Add that folder plus all subfolders to the path.
+addpath(genpath(folder));
+
+AttiQuaternion = inputArg2;
 end
 

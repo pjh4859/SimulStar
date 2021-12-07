@@ -1,4 +1,4 @@
-function [DeterminedStarMap] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Params)
+function [DeterminedStars,PyrFlag] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Params)
 %PYRAMIDALGO
 %   피라미드 알고리즘을 통해 현재 화면에 나타나 있는 별들이 어떤 별들인지 정보를 반환.
 
@@ -12,7 +12,7 @@ StarCandi3 = [];
 TriFlag = 0;
 PyrFlag = 0;
 
-DeterminedStarMap = [];
+DeterminedStars = [];
 
 count = 0;
 % StarNum Combination 3 Loop.
@@ -45,9 +45,10 @@ for dj = 1:(StarNum-2)
                 % MatchTri 배열의 형태 [별 라벨i,j,k, K벡터상 별 인덱스 A,B,C]
                 [MatchTri] = MatchTriangle(TriStar, BSCatalog, StarPairAngle);
                 
+                
+%%
                 % Refernce Star 를 고름.
                 r = SelectReferenceStar(i,j,k,StarNum);  
-%                 r=17;
                 % 새로 선택한 r 별과 콤비네이션 어레이를 만든 후 각각의 각거리를 구함.
                 combiArr2 = [i,r;j,r;k,r];
                 for q = 1:size(combiArr2) % Size Must be 3.
@@ -61,11 +62,12 @@ for dj = 1:(StarNum-2)
                     referStarPairAngle = [referStarPairAngle; OutAngle];                
                 end
                 % 이전에 구한 트라이앵글과 reference star 를 통해 별을 찾음.
+                % MatchPyramid 의 형태 [i, j, k, r, i인덱스, j인덱스, k인덱스, r인덱스]
                 [MatchPyramid, PyrFlag] = FindPyramid(MatchTri,Kvector,referStarPairAngle,Params.a1,Params.a0,r);
-                
+                % 다시한번 하나의 피라미드만 골라졌는지 확인.
                 if PyrFlag
                     if UniqueSol(MatchPyramid)
-                        DeterminedStarMap = [];
+                        DeterminedStars = MatchPyramid;
                         return;
                     end
                 end

@@ -1,4 +1,4 @@
-function [outputArg1] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
+function [Flag] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
 %MAIN_STARID
 %   별 인식 알고리즘의 메인 함수.
 % Determine where your m-file's folder is.
@@ -6,9 +6,7 @@ folder = fileparts(which('main_StarID.m'));
 % Add that folder plus all subfolders to the path.
 addpath(genpath(folder));
 
-% ThresholdMag = 5;
-% FoVx = 5;
-% FoVy = 5;
+Flag = 0;
 
 % 별 라벨링 Input은 이미지 매트릭스(흑백 0~255), 픽셀의 밝기 스레스홀드.
 [Labels, StarNum] = RegionLabeling(StarMat, PixThreshold);
@@ -32,12 +30,27 @@ Params.a0 = double(a0);
 
 if (size(StarCenter,1) < 2)
     % 별이 적을때.
+    
 elseif (size(StarCenter,1) == 3)
     %별이 3개뿐일 때.
-%     [DeterminedStarMap] = TriangleAlgo(BSCatalog, Kvector, StarCenter, Params);
+    [DeterminedStarMap,TriFlag] = TriangleAlgo(BSCatalog, Kvector, StarCenter, Params);
+    if TriFlag
+        MakeSelectedImage(UIAxes, StarCenter, DeterminedStarMap);
+        Flag = 1;
+    end
 else
     % 이제 별들의 중심점들 가지고 별 페어의 각도를 구하며, 피라미드 알고리즘 구동.
-    [DeterminedStarMap] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Params);
+    % DeterminedStarMap 의 형태 [라벨i, 라벨j, 라벨k, 라벨r, i인덱스, j인덱스, k인덱스, r인덱스]
+    [DeterminedStarMap,PyrFlag] = PyramidAlgo(BSCatalog, Kvector, StarCenter, Params);
+    if PyrFlag
+        MakeSelectedImage(UIAxes, StarCenter, DeterminedStarMap);
+        Flag = 1;
+    end
+end
+
+if Flag
+    [ImageVector,CatalogVector] = MakeSelectedStarVector(StarCenter,BSCatalog,DeterminedStarMap,Params);
+%     AttiQuaternion = main_AttiDet(ImageVector,CatalogVector);
 end
 
 end
