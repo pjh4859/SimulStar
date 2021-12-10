@@ -11,10 +11,12 @@ arguments
 end
 global Debugmode;
 Debugmode = 0;
-% Determine where your m-file's folder is.
-folder = fileparts(which('main.m')); 
-% Add that folder plus all subfolders to the path.
-addpath(genpath(folder));
+
+% % Determine where your m-file's folder is.
+% folder = fileparts(which('main.m')); 
+% % Add that folder plus all subfolders to the path.
+% addpath(genpath(folder));
+
 %Erase Debug Files
 EraseFiles;
 %     input parameters

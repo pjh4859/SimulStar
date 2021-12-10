@@ -1,10 +1,10 @@
 function [Flag] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
 %MAIN_STARID
 %   별 인식 알고리즘의 메인 함수.
-% Determine where your m-file's folder is.
-folder = fileparts(which('main_StarID.m')); 
-% Add that folder plus all subfolders to the path.
-addpath(genpath(folder));
+% % Determine where your m-file's folder is.
+% folder = fileparts(which('main_StarID.m')); 
+% % Add that folder plus all subfolders to the path.
+% addpath(genpath(folder));
 
 Flag = 0;
 
@@ -49,8 +49,10 @@ else
 end
 
 if Flag
+    % ImageVector 와 CatalogVector 의 형상 [ x, y, z ; x2, y2, z2 ; ...]
+    % 3개의 벡터 또는 4개의 벡터행을 가지고 있음.
     [ImageVector,CatalogVector] = MakeSelectedStarVector(StarCenter,BSCatalog,DeterminedStarMap,Params);
-%     AttiQuaternion = main_AttiDet(ImageVector,CatalogVector);
+    AttiQuaternion = main_AttiDet(ImageVector,CatalogVector);
 end
 
 end
