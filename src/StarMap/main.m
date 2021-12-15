@@ -22,6 +22,7 @@ EraseFiles;
 %     input parameters
 [inputParam, inputPixel, inputImage] = Parameters(Params);
 %     txt 파일에서 데이터 읽기
+% isdeployed는 배포모드일 경우 참.
 if isdeployed
     inputCatalog = ReadCatalog.array('BSCatalog.txt');
 else
@@ -29,7 +30,7 @@ else
 end
 %     원하는 별 고르기
 outputCatalog = SelectStars(inputCatalog, inputParam);
-%     고른 별 StarTracker Coordinate로 좌표 변환하기
+%     고른 별 StarTracker Coordinate로 좌표 변환하기(z의 크기가 같은 Plane 으로 변환)
 StarPlaneMatrix = Transform2Starmap(outputCatalog, inputParam);
 %     Starmap projection
 StarmapPosiMAT = StarmapProjection(StarPlaneMatrix, inputPixel, inputParam, inputImage);

@@ -8,14 +8,14 @@ classdef TCPServer
     
     methods( Static = true )
         function t = CreateTCPServer(address,port)
-            %TCPSERVER 이 클래스의 인스턴스 생성
-            %   자세한 설명 위치
+            %TCPSERVER
+            %   TCP/IP 서버를 생성하는 함수
             t = tcpserver(address,port);            
         end
         
-        function outputArg = SendData(inputArg, t)
-            %METHOD1 이 메서드의 요약 설명 위치
-            %   자세한 설명 위치
+        function outputArg = SendData(inputArg, ~)
+            %SendData
+            %   데이터를 TCP/IP 통신을 통해 보내는 함수
             outputArg = obj.Property1 + inputArg;
         end
     end

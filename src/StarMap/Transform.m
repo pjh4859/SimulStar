@@ -32,7 +32,7 @@ classdef Transform
             phi = inputParam.RA - 90;
             theta = inputParam.DEC - 90;
             psi = inputParam.ROT;
-            [x,y,z] = sph2cart(Star_RA*pi/180,Star_DEC*pi/180,1);
+            [x,y,z] = sph2cart(Star_RA*pi/180, Star_DEC*pi/180, 1);
             vector = [x,y,z];
 
             q1 = [cosd(phi/2), 0, 0, sind(phi/2)];

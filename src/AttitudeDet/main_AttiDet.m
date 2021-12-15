@@ -2,9 +2,14 @@ function [AttiQuaternion] = main_AttiDet(ImageVector,CatalogVector)
 %MAIN_ATTIDET
 % 자세결정 Main함수
 
-a = [1,1,1,1];
 NormImageVector = [];
 [rows,~] = size(ImageVector);
+
+if rows == 4
+    a = [1/4, 1/4, 1/4, 1/4];
+elseif rows ==3
+    a = [1/3, 1/3, 1/3];
+end
 
 for i=1:rows
     NormImageVector = [NormImageVector ; ImageVector(i,:)/norm(ImageVector(i,:))];
@@ -17,6 +22,7 @@ for i=1:rows
     %Attitude profile matrix
     % weightage for all measurements to be given 1, wrongly identified stars
     B = B + a(i)*(NormImageVector(i,:))'*CatalogVector(i,:);
+   
     omega = omega + a(i);
     
     Z = Z + a(i)*cross(NormImageVector(i,:),CatalogVector(i,:));

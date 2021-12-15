@@ -12,11 +12,8 @@ while (client.NumBytesAvailable > 0)
     ThresholdMag = temp3(1);
     tempStarMat = read(client,cast(PixX,'uint32')*cast(PixY,'uint32'),"uint8");
 end
-% temp = read(client,2,"uint16");
-% tempStarMat = read(client,client.NumBytesAvailable,"uint8");
-% PixX = temp(1);
-% PixY = temp(2);
-StarMat = reshape(tempStarMat,[PixX,PixY]);
+
+StarMat = reshape(tempStarMat,[PixY,PixX]);
 
 end
 

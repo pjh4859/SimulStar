@@ -1,7 +1,11 @@
 function [image] = MakeImage(imgMAT,inputImage,inputPixel)
-% Input is uint16 image data. We will make it uint8 image data with hard
-% casting.
+%  MakeImage
+% 이미지 매트릭스로 이미지를 만드는 함수
+
+% Input is uint16 image data. We will make it uint8 image data with hard casting.
+% rgb 3채널에서 그레이스케일로
 img = rgb2gray(imgMAT);
+
 if inputImage.ActiveBlur == 1
     img = imgaussfilt(img, inputImage.sigma, 'FilterSize', 7, 'FilterDomain', 'spatial');
 end
@@ -14,7 +18,7 @@ end
 if inputImage.ActiveRandObj == 1
     img = MakeObject(img, inputImage,inputPixel);
 end
-
+% 255까지의 이미지스케일로 cast
 image = uint8(img);
 end
 
@@ -54,5 +58,7 @@ for i=1:randObjNum
         end
     end
 end
+
 ObjectMAT = imgMAT;
+
 end
