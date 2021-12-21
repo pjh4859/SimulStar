@@ -14,6 +14,8 @@ while (client.NumBytesAvailable > 0)
 end
 
 StarMat = reshape(tempStarMat,[PixY,PixX]);
+flush(client);
+
 
 end
 
