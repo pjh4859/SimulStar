@@ -1,14 +1,13 @@
-function [EOF] = ReadPosiFile(filepath)
+function [SequenceFile] = ReadPosiFile(filepath)
 %READPOSIFILE 이 함수의 요약 설명 위치
 %   자세한 설명 위치
 arguments
-    filepath = '../BSCatalog/BSCatalog.txt';
+    filepath = '../TrackingFile/';
 end
 
-if exist()
-   mkdir(filepath); 
-end
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+filepath = strcat(filepath, 'TrackingFile.txt');
+
+SequenceFile = readmatrix(filepath);    
+
 end
 

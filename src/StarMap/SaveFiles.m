@@ -10,6 +10,9 @@ classdef SaveFiles
                 homedir = getenv('HOME');
             end
             Path = filepath;
+            if ~exist(Path)
+                mkdir(Path);
+            end
             Path = strcat(Path,'/StarImage.png');
             imwrite(Image, Path);
         end
