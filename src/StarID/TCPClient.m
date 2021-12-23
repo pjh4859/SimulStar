@@ -3,5 +3,7 @@ function [client] = TCPClient(ServerAddress,port)
 %    tcpip client를 생성
 
 client = tcpclient(ServerAddress,port); 
+% configureCallback(client,'terminator',@TCPIP_TerminatorCallbackFnc);
+
 end
 
