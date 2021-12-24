@@ -6,4 +6,3 @@ if size(MatchPyramid,1) == 1
     Unique = 1;
 end
 end
-
