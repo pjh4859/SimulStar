@@ -6,9 +6,16 @@ function [ImageVector,CatalogVector] = MakeSelectedStarVector(StarCenter,BSCatal
 CatalogVector = [];
 ImageVector = [];
 for i=1:(cols/2)
-    RA = BSCatalog(i,2);
-    DEC = BSCatalog(i,3);
-    [x,y,z] = sph2cart(RA*pi/180, DEC*pi/180,1);
+    RA = BSCatalog(DeterminedStarMap(1,i+4), 2);
+    DEC = BSCatalog(DeterminedStarMap(1,i+4), 3);
+    
+%     phi = RA + 90;
+%     theta = 90 - DEC;
+%     psi = 0;
+    
+    [x,y,z] = sph2cart(RA*pi/180, DEC*pi/180, 1);
+%     [x,y,z] = sph2cart(phi*pi/180, theta*pi/180, 1);
+
     CatalogVector = [CatalogVector; x,y,z];
     
     tempVector = CalVector(DeterminedStarMap(1,i),StarCenter,Params);

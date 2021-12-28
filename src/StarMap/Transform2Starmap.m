@@ -9,9 +9,7 @@ for i=1:size(outputCatalog,1)
     StarVector_Tracker(i,:) = [temp, Mag_Star] ;
 end
 StarMatrix = StarVector_Tracker;
-StarPlane = Starmap2Starplane(StarMatrix, inputParam);
-StarPlaneMatrix = StarPlane;
-%     StarPlaneMatrix = StarMatrix;
+StarPlaneMatrix = Starmap2Starplane(StarMatrix, inputParam);
 end
 
 % Star Tracker coordinate 로 변환한 별 벡터들을 z가 일정한 평면으로 프로젝션.
@@ -33,13 +31,11 @@ for i=1:size(StarMatrix,1)
     Plane_z = cosd(Radius);
     
     Plane(i,:) = [Plane_x, Plane_y, Plane_z, Star_mag];
-    %     if feature('IsDebugMode')
     if Debugmode
         fileID = fopen('../StarVector_Plane.txt','a');
         fprintf(fileID,"%f %f %f %f\n", Plane_x, Plane_y, Plane_z, Star_mag);
         fclose(fileID);
     end
-    %     end
 end
 StarPlane = Plane;
 end

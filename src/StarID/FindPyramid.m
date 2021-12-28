@@ -39,7 +39,8 @@ StarCandi3 = StarCandi3(tempx,:);
 
 if (size(StarCandi1,1) && size(StarCandi2,1) && size(StarCandi3,1))
     rNum = intersect(intersect(StarCandi1,StarCandi2),StarCandi3);
-    if size(rNum,1) == 1
+    [Numrow,Numcol] = size(rNum);
+    if Numrow == 1 && Numcol == 1
         MatchR = [MatchR; r, rNum, i];
     end
 end

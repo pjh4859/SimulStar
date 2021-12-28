@@ -4,11 +4,7 @@ function [AttiQuaternion] = QUEST_algo(ImageVector,CatalogVector)
 NormImageVector = [];
 [rows,~] = size(ImageVector);
 
-if rows == 4
-    a = [1/4, 1/4, 1/4, 1/4];
-elseif rows ==3
-    a = [1/3, 1/3, 1/3];
-end
+a = ones(1,rows)/rows; % weight 
 
 for i=1:rows
     NormImageVector = [NormImageVector ; ImageVector(i,:)/norm(ImageVector(i,:))];

@@ -1,4 +1,7 @@
-clc;clear;
+function [AttiQuaternion] = QUEST_algo2(ImageVector,CatalogVector)
+%QUEST_ALGO
+%   QUEST Algorithm
+% clc;clear;
 
 
 % CAUTION: 
@@ -6,27 +9,28 @@ clc;clear;
 % Markley's textbook quaternion convention is scalar-last.
 
 % pick random quaternion
-q=randn(1,4); q=q/norm(q);
-dcm = quat2dcm(q);
+% q=randn(1,4); q=q/norm(q);
+% dcm = quat2dcm(q);
+% 
+% % generate n random unit vectors
+% 
+[rows,~] = size(ImageVector);
+NormImageVector = [];
 
-% generate n random unit vectors
+a = ones(1,rows)/rows; % weight 
 
-n=4;
-r=zeros(3,n); % reference vector
-for i=1:n
-    v=randn(3,1);
-    v=v/norm(v);
-    r(:,i)=v;
+r = CatalogVector';
+for i=1:rows
+    NormImageVector = [NormImageVector ; ImageVector(i,:)/norm(ImageVector(i,:))];
 end
+b = NormImageVector';
 
-b=dcm*r; % measured vector
+% b=dcm*r; % measured vector
 
 % davenport's q method
 
-a = ones(1,n)/n; % weight 
-
 B = zeros(3,3); % attitude profile matrix
-for i=1:n
+for i=1:rows
     B = B + a(i)*b(:,i)*r(:,i)';
 end
 
@@ -47,7 +51,7 @@ lambda = diag(L);
 [max_labmda_devenport, max_idx_devenport] = max(lambda);
 
 disp('input quaternion');
-q
+% q
 disp('estimated quaternion - devenport q method');
 q_devenport = Q(:,max_idx_devenport)'
 
@@ -72,4 +76,6 @@ disp('estimated quaternion - quest algoirhtm');
 q_quest = [det(rho*eye(3)-S); adjoint(rho*eye(3)-S)*z]';
 q_quest = q_quest / norm(q_quest)
 
+AttiQuaternion = q_quest;
+end
 

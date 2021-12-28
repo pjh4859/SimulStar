@@ -29,12 +29,17 @@ classdef Transform
         function [M] = QuaternionRotate(inputParam, Star_RA, Star_DEC)
             global Debugmode
 
-            phi = inputParam.RA - 90;
-            theta = inputParam.DEC - 90;
-            psi = inputParam.ROT;
+%             phi = inputParam.RA - 90;
+%             theta = inputParam.DEC - 90;
+
+            phi = inputParam.RA + 90;
+            theta = 90 - inputParam.DEC;
+            psi = - inputParam.ROT + 180;
+            
             [x,y,z] = sph2cart(Star_RA*pi/180, Star_DEC*pi/180, 1);
             vector = [x,y,z];
-
+               
+            %[w i j k]
             q1 = [cosd(phi/2), 0, 0, sind(phi/2)];
             q2 = [cosd(theta/2), sind(theta/2), 0, 0];
             q3 = [cosd(psi/2), 0, 0, sind(psi/2)];
@@ -43,14 +48,11 @@ classdef Transform
             q = quatmultiply(temp,q3);
 
             M = quatrotate(q,vector);
-            %             For Debuging
-            %             if feature('IsDebugMode')
             if Debugmode
                 fileID = fopen('../StarVector_Transformed.txt','a');
                 fprintf(fileID,"%f %f %f\n",M(1),M(2),M(3));
                 fclose(fileID);
             end
-            %             end
         end
     end
 end

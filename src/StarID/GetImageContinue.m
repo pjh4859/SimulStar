@@ -17,7 +17,10 @@ function GetImageContinue(timer,~,app)
         app.UIAxes.XLim = [0 I.XData(2)];
         app.UIAxes.YLim = [0 I.YData(2)];
         
-        [PyFlag] = main_StarID(app.StarMat, app.Threshold, app.UIAxes, app.Params);
+        [PyFlag,Attitude] = main_StarID(app.StarMat, app.Threshold, app.UIAxes, app.Params);
+        if PyFlag
+            app.TextArea.Value = ShowCurrentStatus(Attitude);
+        end
     end
 end
 
