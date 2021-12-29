@@ -20,7 +20,7 @@ Attitude = 0;
 MakeStarCenterImage(UIAxes, StarCenter);
 
 % Kvector 를 만들기 위한 함수로 이미 있다면 하는 기능은 없음.
-Make_Svector(Params.FoVx, Params.FoVy, Params.ThresholdMag);
+[~,SvectorFlag] = Make_Svector(Params.FoVx, Params.FoVy, Params.ThresholdMag);
 
 % k벡터, 별 카탈로그, a0,a1 값 txt 파일을 읽음.
 [BSCatalog, Kvector, a1, a0] = ReadFiles(Params.FoVx, Params.FoVy, Params.ThresholdMag);

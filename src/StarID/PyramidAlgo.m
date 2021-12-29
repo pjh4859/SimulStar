@@ -23,7 +23,8 @@ for dj = 1:(StarNum-2)
             k = j + dk;
             
             % combi의 ijk 는 이미지에 라벨링된 별 번호.
-            combi = [i, j, k];            
+            combi = [i, j, k];
+            % 골라진 별 세개중 두개씩 콤비네이션을 구함.
             combiArr = nchoosek(combi,2);
             for q = 1:size(combiArr) % Size Must be 3.
                 % Star1 or Star2 배열의 모양. [이미지 X좌표, 이미지 Y좌표, 별 라벨번호]
@@ -46,34 +47,42 @@ for dj = 1:(StarNum-2)
                 [MatchTri] = MatchTriangle(TriStar, BSCatalog, StarPairAngle);
                 
                 
-%%
-                % Refernce Star 를 고름.
-                r = SelectReferenceStar(i,j,k,StarNum);  
-                % 새로 선택한 r 별과 콤비네이션 어레이를 만든 후 각각의 각거리를 구함.
-                combiArr2 = [i,r;j,r;k,r];
-                for q = 1:size(combiArr2) % Size Must be 3.
-                    % Star1 or Star2 배열의 모양. [이미지 X좌표, 이미지 Y좌표, 별 라벨번호]
-                    Star1 = [StarCenter(combiArr2(q,1),1), StarCenter(combiArr2(q,1),2), combiArr2(q,1)];
-                    Star2 = [StarCenter(combiArr2(q,2),1), StarCenter(combiArr2(q,2),2), combiArr2(q,2)];
-                    % 픽셀위치에서 각거리를 구한다.
-                    % OutAngle 배열의 모양. [Star1과 Star2의 각거리, Star1의 라벨 번호, Star2의 라벨 번호]
-                    [OutAngle] = CalPix2Deg(Params.FoVx,Params.FoVy,Params.pixX,Params.pixY, Star1, Star2);
-                    % 각들을 배열로 추가함.
-                    referStarPairAngle = [referStarPairAngle; OutAngle];                
-                end
-                % 이전에 구한 트라이앵글과 reference star 를 통해 별을 찾음.
-                % MatchPyramid 의 형태 [i, j, k, r, i인덱스, j인덱스, k인덱스, r인덱스]
-                [MatchPyramid, PyrFlag] = FindPyramid(MatchTri,Kvector,referStarPairAngle,Params.a1,Params.a0,r);
-                % 다시한번 하나의 피라미드만 골라졌는지 확인.
-                if PyrFlag
-                    if UniqueSol(MatchPyramid)
-                        DeterminedStars = MatchPyramid;
-                        return;
+%% 
+                CandiRefer = (1:StarNum);
+                TriStarArr = [i,j,k];
+                for Rstars = 1:StarNum - 3   
+                    for q=1:3
+                        CandiRefer(:, CandiRefer == TriStarArr(q)) = [];
                     end
+                    
+                    % Refernce Star 를 고름.
+                    r = SelectReferenceStar(i,j,k,StarNum,CandiRefer);  
+                    CandiRefer(:, CandiRefer == r) = [];
+                    % 새로 선택한 r 별과 콤비네이션 어레이를 만든 후 각각의 각거리를 구함.
+                    combiArr2 = [i,r;j,r;k,r];
+                    for q = 1:size(combiArr2) % Size Must be 3.
+                        % Star1 or Star2 배열의 모양. [이미지 X좌표, 이미지 Y좌표, 별 라벨번호]
+                        Star1 = [StarCenter(combiArr2(q,1),1), StarCenter(combiArr2(q,1),2), combiArr2(q,1)];
+                        Star2 = [StarCenter(combiArr2(q,2),1), StarCenter(combiArr2(q,2),2), combiArr2(q,2)];
+                        % 픽셀위치에서 각거리를 구한다.
+                        % OutAngle 배열의 모양. [Star1과 Star2의 각거리, Star1의 라벨 번호, Star2의 라벨 번호]
+                        [OutAngle] = CalPix2Deg(Params.FoVx,Params.FoVy,Params.pixX,Params.pixY, Star1, Star2);
+                        % 각들을 배열로 추가함.
+                        referStarPairAngle = [referStarPairAngle; OutAngle];                
+                    end
+                    % 이전에 구한 트라이앵글과 reference star 를 통해 별을 찾음.
+                    % MatchPyramid 의 형태 [i, j, k, r, i인덱스, j인덱스, k인덱스, r인덱스]
+                    [MatchPyramid, PyrFlag] = FindPyramid(MatchTri,Kvector,referStarPairAngle,Params.a1,Params.a0,r);
+                    % 다시한번 하나의 피라미드만 골라졌는지 확인.
+                    if PyrFlag
+                        if UniqueSol(MatchPyramid)
+                            DeterminedStars = MatchPyramid;
+                            return;
+                        end
+                    end
+                    referStarPairAngle = [];
                 end
-                referStarPairAngle = [];
             end
-                
             count = count+1;
             StarPairAngle = [];
         end
