@@ -6,7 +6,7 @@ if (client.NumBytesAvailable > 0)
     temp = read(client,2,"uint16");
     PixX = temp(1);
     PixY = temp(2);
-    temp2 = read(client,2,'uint8');
+    temp2 = read(client,2,'single');
     FoVx = temp2(1);
     FoVy = temp2(2);
     temp3 = read(client,1,'single');

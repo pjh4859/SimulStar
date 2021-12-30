@@ -46,6 +46,12 @@ else
     if PyrFlag
         MakeSelectedImage(UIAxes, StarCenter, DeterminedStarMap);
         Flag = 1;
+    else
+        [DeterminedStarMap,TriFlag] = TriangleAlgo(BSCatalog, Kvector, StarCenter, Params);
+        if TriFlag
+            MakeSelectedImage(UIAxes, StarCenter, DeterminedStarMap);
+            Flag = 1;
+        end
     end
 end
 
