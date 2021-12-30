@@ -101,18 +101,20 @@ while change2 == 1
     
 end
 
-% removing redundat links
-linked = unique(cellfun(@num2str,linked,'UniformOutput',false));
-linked = cellfun(@str2num,linked,'UniformOutput',false);
+if size(linked,1) ~= 0
+    % removing redundat links
+    linked = unique(cellfun(@num2str,linked,'UniformOutput',false));
+    linked = cellfun(@str2num,linked,'UniformOutput',false);
 
-K = length(linked);
-templabels = labels;
-labels = zeros(size(labels));
+    K = length(linked);
+    templabels = labels;
+    labels = zeros(size(labels));
 
-% label linked labels with a single label:
-for k = 1:K
-    for l = 1:length(linked{k})
-        labels(templabels == linked{k}(l)) = k;
+    % label linked labels with a single label:
+    for k = 1:K
+        for l = 1:length(linked{k})
+            labels(templabels == linked{k}(l)) = k;
+        end
     end
 end
 

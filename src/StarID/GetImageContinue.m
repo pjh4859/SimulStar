@@ -20,6 +20,11 @@ function GetImageContinue(timer,~,app)
         [PyFlag,Attitude] = main_StarID(app.StarMat, app.Threshold, app.UIAxes, app.Params);
         if PyFlag
             app.TextArea.Value = ShowCurrentStatus(Attitude);
+            app.StarIDLamp.Color = [0 1 0];
+            app.TextArea.FontColor = [1 0 0];
+        else
+            app.StarIDLamp.Color = [1 0 0];            
+            app.TextArea.FontColor = [0 0 0];
         end
     end
 end

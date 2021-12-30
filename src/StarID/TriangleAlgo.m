@@ -10,7 +10,7 @@ StarCandi2 = [];
 StarCandi3 = [];
 TriFlag = 0;
 
-DeterminedStars = [];
+DeterminedStarMap = [];
 
 count = 0;
 % StarNum Combination 3 Loop.

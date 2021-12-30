@@ -6,8 +6,8 @@ function [ImageVector,CatalogVector] = MakeSelectedStarVector(StarCenter,BSCatal
 CatalogVector = [];
 ImageVector = [];
 for i=1:(cols/2)
-    RA = BSCatalog(DeterminedStarMap(1,i+4), 2);
-    DEC = BSCatalog(DeterminedStarMap(1,i+4), 3);
+    RA = BSCatalog(DeterminedStarMap(1,i+cols/2), 2);
+    DEC = BSCatalog(DeterminedStarMap(1,i+cols/2), 3);
     
 %     phi = RA + 90;
 %     theta = 90 - DEC;
