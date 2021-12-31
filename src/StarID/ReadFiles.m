@@ -1,11 +1,17 @@
 function [BSCatalog, Kvector, a1, a0] = ReadFiles(FoVx, FoVy, ThresholdMag)
 %READFILES
 %  어레이 형태로 Kvector a1,a0, 별 카탈로그 읽기
-filepath = "../BSCatalog/";
-filename1 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
-filename2 = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
-filename3 = "BSCatalog.txt";
-
+if isdeployed
+    filepath = "";
+    filename1 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename2 = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename3 = "BSCatalog.txt";
+else    
+    filepath = "../BSCatalog/";
+    filename1 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename2 = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename3 = "BSCatalog.txt";
+end
 
 fid = fopen(string(filepath)+string(filename1),'rt');
 a1a0 = textscan(fid,'%f%f');

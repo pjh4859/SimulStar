@@ -1,60 +1,115 @@
-<deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration file="D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap\StarmapSIM.prj" location="D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap" name="StarmapSIM" target="target.mlapps" target-name="앱 패키징">
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration file="D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap\StarmapSIM.prj" location="D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap" name="StarmapSIM" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>StarmapSIM</param.appname>
-    <param.authnamewatermark />
-    <param.email />
-    <param.company />
     <param.icon />
     <param.icons />
+    <param.version>1.0</param.version>
+    <param.authnamewatermark>NIARO</param.authnamewatermark>
+    <param.email />
+    <param.company />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\user\AppData\Local\Temp\tpbd98bf66_1fb5_49ff_84b2_e717165c0130.png</param.screenshot>
-    <param.version>1.0</param.version>
-    <param.products.name />
-    <param.products.id />
-    <param.products.version />
-    <param.platforms />
-    <param.output>${PROJECT_ROOT}</param.output>
-    <param.guid>8ccd248b-9eaf-483b-9f32-1e9ac3edcd92</param.guid>
+    <param.screenshot>D:\MATLAB\BrightStarSimulator\SimulStar\Icon\StarImg.png</param.screenshot>
+    <param.guid />
+    <param.installpath.string>\StarmapSIM\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.target.install.notes />
+    <param.intermediate>${PROJECT_ROOT}\StarmapSIM\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\StarmapSIM\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\StarmapSIM\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\StarmapSIM</param.logdir>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.web.mcr>true</param.web.mcr>
+    <param.package.mcr>false</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>MyAppInstaller_mcr</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <param.native.matlab>false</param.native.matlab>
+    <param.checkbox>false</param.checkbox>
+    <param.example />
+    <param.help.text>Syntax 
+	  -? 
+	 
+ Input Arguments 
+	 -?  print help on how to use the application 
+	 input arguments</param.help.text>
     <unset>
-      <param.authnamewatermark />
-      <param.email />
-      <param.company />
       <param.icon />
       <param.icons />
+      <param.version />
+      <param.email />
+      <param.company />
       <param.summary />
       <param.description />
-      <param.version />
-      <param.products.name />
-      <param.products.id />
-      <param.products.version />
-      <param.platforms />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.install.notes />
+      <param.target.install.notes />
+      <param.intermediate />
+      <param.files.only />
       <param.output />
+      <param.logdir />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.target.type />
+      <param.support.packages />
+      <param.web.mcr />
+      <param.package.mcr />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.package.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+      <param.native.matlab />
+      <param.checkbox />
+      <param.example />
     </unset>
     <fileset.main>
       <file>${PROJECT_ROOT}\StarmapSimGUI.mlapp</file>
     </fileset.main>
+    <fileset.resources>
+      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\BSCatalog.txt</file>
+      <file>D:\MATLAB\BrightStarSimulator\SimulStar\StarIMG</file>
+      <file>D:\MATLAB\BrightStarSimulator\SimulStar\TrackingFile</file>
+    </fileset.resources>
+    <fileset.package />
     <fileset.depfun>
       <file>${PROJECT_ROOT}\EraseFiles.m</file>
       <file>${PROJECT_ROOT}\Icon1.png</file>
+      <file>${PROJECT_ROOT}\ImgProcessing.m</file>
       <file>${PROJECT_ROOT}\main.m</file>
       <file>${PROJECT_ROOT}\MakeImage.m</file>
       <file>${PROJECT_ROOT}\Parameters.m</file>
       <file>${PROJECT_ROOT}\ReadCatalog.m</file>
+      <file>${PROJECT_ROOT}\ReadIMGFile.m</file>
+      <file>${PROJECT_ROOT}\ReadPosiFile.m</file>
       <file>${PROJECT_ROOT}\SaveFiles.m</file>
       <file>${PROJECT_ROOT}\SelectStars.m</file>
       <file>${PROJECT_ROOT}\ShowStatus.m</file>
       <file>${PROJECT_ROOT}\StarGrey_mag.m</file>
       <file>${PROJECT_ROOT}\StarmapProjection.m</file>
-      <file>${PROJECT_ROOT}\TCPServer.m</file>
+      <file>${PROJECT_ROOT}\TCPIP_ConnectionChangedFcn.m</file>
       <file>${PROJECT_ROOT}\Transform.m</file>
       <file>${PROJECT_ROOT}\Transform2Starmap.m</file>
       <file>${PROJECT_ROOT}\Utile.m</file>
     </fileset.depfun>
-    <fileset.resources />
-    <fileset.package />
     <build-deliverables>
-      <file location="D:\MATLAB\BrightStarSimulator\SimulStar\src" name="StarMap" optional="false">D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap</file>
+      <file location="${PROJECT_ROOT}\StarmapSIM\for_testing" name="readme.txt" optional="true">D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap\StarmapSIM\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\StarmapSIM\for_testing" name="StarmapSIM.exe" optional="false">D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap\StarmapSIM\for_testing\StarmapSIM.exe</file>
+      <file location="${PROJECT_ROOT}\StarmapSIM\for_testing" name="splash.png" optional="false">D:\MATLAB\BrightStarSimulator\SimulStar\src\StarMap\StarmapSIM\for_testing\splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>

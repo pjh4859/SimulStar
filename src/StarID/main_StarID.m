@@ -1,4 +1,4 @@
-function [Flag,Attitude] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
+function [SvectorFlag,Flag,Attitude] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
 %MAIN_STARID
 %   별 인식 알고리즘의 메인 함수.
 % % Determine where your m-file's folder is.

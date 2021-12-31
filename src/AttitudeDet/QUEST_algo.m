@@ -26,7 +26,9 @@ end
 % Z = B - B';
 S = B + B';
 sigma = trace(S)/2;
-kappa = trace(adjoint(S));
+%앱 빌드할때 adjoint 가 안됨.
+% kappa = trace(adjoint(S));
+kappa = trace(det(S)*inv(S));
 delta = det(S);
 
 alpha = omega^2 - sigma^2 + kappa;

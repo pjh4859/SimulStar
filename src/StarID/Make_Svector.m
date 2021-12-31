@@ -6,11 +6,17 @@ function [Kvector,outputArg1] = Make_Svector(FoVx, FoVy, ThresholdMag)
 % folder = fileparts(which('Make_Kvector.m')); 
 % % Add that folder plus all subfolders to the path.
 % addpath(genpath(folder));
-
-filepath = '../BSCatalog/';
-filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
-filename2 = "Svector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
-filename3 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+if isdeployed
+    filepath = './BSCatalog/';
+    filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename2 = "Svector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename3 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+else
+    filepath = '../BSCatalog/';
+    filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename2 = "Svector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+    filename3 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
+end
 
 Svector = [];
 Tempvector = [];
@@ -22,7 +28,14 @@ if isfile(filepath+filename)
     outputArg1 = 0;
 else
     outputArg1 = 1;
-    BSCatalogpath = filepath+"BSCatalog.txt";
+    if ~exist(filepath)
+        mkdir(filepath);
+    end
+    if isdeployed
+        BSCatalogpath = ""+"BSCatalog.txt";
+    else
+        BSCatalogpath = filepath+"BSCatalog.txt";
+    end
     BSCatalogData = readmatrix(BSCatalogpath);    
     FoV = sqrt(double(FoVx)^2 + double(FoVy)^2);
     
@@ -91,5 +104,5 @@ else
     close('all');
     
 end
-    
+%     disp(outputArg1);
 end
