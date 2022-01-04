@@ -7,7 +7,7 @@ StarCandi2 = [];
 StarCandi3 = [];
 
 % 센트로이딩 오차 + 별별오차
-% 10arcsec by Mortari,1997
+% 10 arcsec by Mortari,1997
 epsilon = 10/3600;
 for i=1:size(StarPairAngle,1) %Size must be 3;
     Lbot = floor((cosd(StarPairAngle(i,1) + 2*epsilon) - a0)/a1);

@@ -22,6 +22,5 @@ BSCatalog = readmatrix(string(filepath)+filename3);
 a1 = a1a0{1};
 a0 = a1a0{2};
 Kvector = readmatrix(string(filepath)+string(filename2));    
-
 end
 

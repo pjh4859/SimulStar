@@ -27,6 +27,11 @@ NumberMatch2 = {};
 if isfile(filepath+filename)
     outputArg1 = 0;
 else
+    % Kvector가 없을 경우
+    % wait bar
+%     f = msgbox({'Making K-vector...';'Please wait...'}, 'Message','warn');
+    tic;
+    waitbar_h = waitbar(0,'Making K-vector Please wait...');
     outputArg1 = 1;
     if ~exist(filepath)
         mkdir(filepath);
@@ -40,9 +45,13 @@ else
     FoV = sqrt(double(FoVx)^2 + double(FoVy)^2);
     
     n=1;
-
-    for i=1:size(BSCatalogData,1)
-        for j=1:size(BSCatalogData,1)
+    
+    for i=1:size(BSCatalogData,1)        
+        % wait bar 생성.
+        waitbar_str = sprintf('%s\n%s',['Making K-vector Please wait...Time Elapsed: ',datestr(datenum(0,0,0,0,0,toc),'HH:MM:SS')]);  
+            elapsedPercent = i/size(BSCatalogData,1);
+            waitbar(elapsedPercent, waitbar_h , waitbar_str);
+        for j=1:size(BSCatalogData,1)            
             if i ~= j
                 if i < j
                     RA_Star1 = BSCatalogData(i,2);
@@ -86,7 +95,11 @@ else
                 end
             end
         end
+        
     end
+    %wait bar 끄기
+    close(waitbar_h);
+    clear waitbar_h;
 %   아무 별도 해당되지 않을 경우 예외처리.
     if (~size(Svector,1))
         Svector = [NaN,NaN,NaN,NaN,NaN];
@@ -99,7 +112,7 @@ else
     aArr = [a1,a0];
     
     writematrix(Kvector,filepath+filename,'Delimiter','tab');
-    writematrix(Tempvector,filepath+filename2,'Delimiter','tab');
+%     writematrix(Tempvector,filepath+filename2,'Delimiter','tab');
     writematrix(aArr,filepath+filename3,'Delimiter','tab');    
     close('all');
     
