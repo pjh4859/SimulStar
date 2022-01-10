@@ -131,3 +131,5 @@ dmypy.json
 
 #UserAdd
 src/StarmapSimGUI/
+src/StarMap/StarmapSIM/
+src/StarID/StarID/
