@@ -1,11 +1,18 @@
 function [IMG] = ReadIMGFile(filepath)
 %READIMGFILE
 %   이미지 파일을 읽는 함수
-arguments
-    filepath = '../StarIMG/';
+
+if isdeployed
+    filepath2 = './StarIMG/';  
+else    
+    filepath2 = "../StarIMG/";  
 end
 
-filepath = strcat(filepath, 'Test1.pgm');
+if strlength(filepath) >= 1
+    filepath = strcat(filepath, 'Test1.pgm'); 
+else
+    filepath = strcat(filepath2, 'Test1.pgm'); 
+end
 
 IMG = imread(filepath);            
 end

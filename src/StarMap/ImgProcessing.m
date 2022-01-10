@@ -5,12 +5,15 @@ switch(Camera)
     case 1
         IMG = immultiply(IMG,5);
         IMG = wiener2(IMG,[5 5]);
-        IMG = IMG-10000;
+%         IMG = IMG-10000;
         column_offsets = median(IMG);
         column_offsets = column_offsets - min(column_offsets);
         new_im = bsxfun(@minus,IMG,column_offsets);
-        IMG = new_im;
-        IMG = IMG - 13000;
+        J = imadjust(new_im,[],[],2.5);
+        IMG = J;
+        IMG = IMG - 4000;
         IMG(965:966,:) = 0;
+         % 16bit to 8bit
+        IMG = uint8(IMG/256);
 end
 

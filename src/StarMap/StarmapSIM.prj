@@ -82,10 +82,11 @@
     </fileset.main>
     <fileset.resources>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\BSCatalog.txt</file>
+    </fileset.resources>
+    <fileset.package>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\StarIMG</file>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\TrackingFile</file>
-    </fileset.resources>
-    <fileset.package />
+    </fileset.package>
     <fileset.depfun>
       <file>${PROJECT_ROOT}\EraseFiles.m</file>
       <file>${PROJECT_ROOT}\Icon1.png</file>

@@ -1,11 +1,17 @@
 function [SequenceFile] = ReadPosiFile(filepath)
 %READPOSIFILE 이 함수의 요약 설명 위치
 %   자세한 설명 위치
-arguments
-    filepath = '../TrackingFile/';
+if isdeployed
+    filepath2 = './TrackingFile/';  
+else    
+    filepath2 = "../TrackingFile/";  
 end
 
-filepath = strcat(filepath, 'TrackingFile.txt');
+if strlength(filepath) >= 1
+    filepath = strcat(filepath, 'TrackingFile.txt'); 
+else
+    filepath = strcat(filepath2, 'TrackingFile.txt'); 
+end
 
 SequenceFile = readmatrix(filepath);    
 
