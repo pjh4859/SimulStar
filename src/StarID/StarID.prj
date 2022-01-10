@@ -9,7 +9,7 @@
     <param.company />
     <param.summary />
     <param.description />
-    <param.screenshot>D:\MATLAB\BrightStarSimulator\SimulStar\Icon\StarImg.png</param.screenshot>
+    <param.screenshot>D:\MATLAB\BrightStarSimulator\SimulStar\Icon\StarImg2.png</param.screenshot>
     <param.guid />
     <param.installpath.string>\StarID\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
@@ -82,12 +82,6 @@
     </fileset.main>
     <fileset.resources>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\BSCatalog.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Kvector_a1a0_FoVx15FoVy15Mag3.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Kvector_a1a0_FoVx15FoVy15Mag5.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Kvector_FoVx15FoVy15Mag3.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Kvector_FoVx15FoVy15Mag5.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Svector_FoVx15FoVy15Mag3.txt</file>
-      <file>D:\MATLAB\BrightStarSimulator\SimulStar\BSCatalog\Svector_FoVx15FoVy15Mag5.txt</file>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\src\AttitudeDet\main_AttiDet.m</file>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\src\AttitudeDet\Quaternion2Cele.m</file>
       <file>D:\MATLAB\BrightStarSimulator\SimulStar\src\AttitudeDet\QUEST_algo.m</file>

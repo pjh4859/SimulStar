@@ -7,7 +7,7 @@ function [Kvector,outputArg1] = Make_Svector(FoVx, FoVy, ThresholdMag)
 % % Add that folder plus all subfolders to the path.
 % addpath(genpath(folder));
 if isdeployed
-    filepath = './BSCatalog/';
+    filepath = './Kvector/';
     filename = "Kvector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
     filename2 = "Svector_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
     filename3 = "Kvector_a1a0_FoVx"+FoVx+"FoVy"+FoVy+"Mag"+ThresholdMag+".txt";
@@ -24,12 +24,11 @@ Kvector = [];
 NumberMatch = {}; 
 NumberMatch2 = {}; 
 
-if isfile(filepath+filename)
+if isfile(filepath+filename) && isfile(filepath+filename3)
     outputArg1 = 0;
 else
     % Kvector가 없을 경우
     % wait bar
-%     f = msgbox({'Making K-vector...';'Please wait...'}, 'Message','warn');
     tic;
     waitbar_h = waitbar(0,'Making K-vector Please wait...');
     outputArg1 = 1;
@@ -37,7 +36,7 @@ else
         mkdir(filepath);
     end
     if isdeployed
-        BSCatalogpath = ""+"BSCatalog.txt";
+        BSCatalogpath = "BSCatalog.txt";
     else
         BSCatalogpath = filepath+"BSCatalog.txt";
     end

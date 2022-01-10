@@ -3,7 +3,7 @@ function [IMG] = ImgProcessing(IMG,Camera)
 %   카메라에 따라 이미지 프로세싱 하기
 switch(Camera)
     case 1
-        IMG = immultiply(IMG,18);
+        IMG = immultiply(IMG,5);
         IMG = wiener2(IMG,[5 5]);
         IMG = IMG-10000;
         column_offsets = median(IMG);

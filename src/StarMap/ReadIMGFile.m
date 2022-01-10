@@ -5,7 +5,7 @@ arguments
     filepath = '../StarIMG/';
 end
 
-filepath = strcat(filepath, 'Test3.pgm');
+filepath = strcat(filepath, 'Test1.pgm');
 
 IMG = imread(filepath);            
 end
