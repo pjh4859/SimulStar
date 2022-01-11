@@ -26,6 +26,7 @@ function GetImageContinue(timer,~,app)
             app.StarIDLamp.Color = [1 0 0];            
             app.TextArea.FontColor = [0 0 0];
         end
+        app.SuccessID = [app.SuccessID; PyFlag];
     end
 end
 

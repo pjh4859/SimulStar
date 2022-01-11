@@ -8,9 +8,9 @@ else
 end
 
 if strlength(filepath) >= 1
-    filepath = strcat(filepath, 'TrackingFile.txt'); 
+    filepath = strcat(filepath, 'TrackingFile3.txt'); 
 else
-    filepath = strcat(filepath2, 'TrackingFile.txt'); 
+    filepath = strcat(filepath2, 'TrackingFile3.txt'); 
 end
 
 SequenceFile = readmatrix(filepath);    
