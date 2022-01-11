@@ -1,0 +1,2 @@
+Threshold Mag: 6
+Fov 15x15: 95.6044%

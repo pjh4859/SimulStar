@@ -12,7 +12,12 @@ function GetImageContinue(timer,~,app)
         app.Params.FoVx = app.FoVx;
         app.Params.FoVy = app.FoVy;
         app.Params.ThresholdMag = app.ThresholdMag;
-
+        
+        [app.UserMem,~] = memory;
+        MemReset = app.UserMem.MemAvailableAllArrays <= app.MemResetVal;
+        if MemReset
+            cla(app.UIAxes,'reset');
+        end
         I = imshow(app.StarMat, 'parent', app.UIAxes);
         app.UIAxes.XLim = [0 I.XData(2)];
         app.UIAxes.YLim = [0 I.YData(2)];
@@ -23,7 +28,7 @@ function GetImageContinue(timer,~,app)
             app.StarIDLamp.Color = [0 1 0];
             app.TextArea.FontColor = [1 0 0];
         else
-            app.StarIDLamp.Color = [1 0 0];            
+            app.StarIDLamp.Color = [1 0 0];
             app.TextArea.FontColor = [0 0 0];
         end
         app.SuccessID = [app.SuccessID; PyFlag];
