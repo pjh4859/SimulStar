@@ -22,7 +22,7 @@ function GetImageContinue(timer,~,app)
         app.UIAxes.XLim = [0 I.XData(2)];
         app.UIAxes.YLim = [0 I.YData(2)];
         
-        [SvectorFlag, PyFlag,Attitude] = main_StarID(app.StarMat, app.Threshold, app.UIAxes, app.Params);
+        [SvectorFlag, PyFlag, Attitude, AttiQuaternion] = main_StarID(app.StarMat, app.Threshold, app.UIAxes, app.Params);
         if PyFlag
             app.TextArea.Value = ShowCurrentStatus(Attitude);
             app.StarIDLamp.Color = [0 1 0];
@@ -31,7 +31,11 @@ function GetImageContinue(timer,~,app)
             app.StarIDLamp.Color = [1 0 0];
             app.TextArea.FontColor = [0 0 0];
         end
-        app.SuccessID = [app.SuccessID; PyFlag];
+        AttitudeArr = [Attitude.RA, Attitude.DEC, Attitude.ROT];
+        app.SuccessID = [app.SuccessID; PyFlag];        
+        app.Attitude = [app.Attitude; AttitudeArr];
+        app.Quaternion = [app.Quaternion; AttiQuaternion];
+
     end
 end
 

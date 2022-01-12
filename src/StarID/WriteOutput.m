@@ -7,8 +7,13 @@ if ~exist(filepath)
     mkdir(filepath);
 end
 filepath1 = strcat(filepath, 'SuccessID.txt');
+filepath2 = strcat(filepath, 'Quaternion.txt');
+filepath3 = strcat(filepath, 'Attitude.txt');
 
 writematrix(app.SuccessID,filepath1,'Delimiter','tab');
+writematrix(app.Quaternion,filepath2,'Delimiter','tab');
+writematrix(app.Attitude,filepath3,'Delimiter','tab');
+
 
 end
 

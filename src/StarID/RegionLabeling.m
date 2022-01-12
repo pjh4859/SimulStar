@@ -22,7 +22,7 @@ for i = 2:x                       % for each row
     for j = 2:y-1                 % for each column
         if data(i,j) >= Threshold % not background
             % find binary value of neighbours
-            neighboursearch = [data(i-1,j-1), data(i-1,j), data(i-1,j+1),data(i,j-1)];
+            neighboursearch = [data(i-1,j-1), data(i-1,j), data(i-1,j+1), data(i,j-1)];
             % for 4-connectivity, replace with:
 %             neighboursearch = [data(i-1,j),data(i,j-1)];
             

@@ -1,4 +1,4 @@
-function [SvectorFlag,Flag,Attitude] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
+function [SvectorFlag,Flag, Attitude, AttiQuaternion] = main_StarID(StarMat, PixThreshold, UIAxes, Params)
 %MAIN_STARID
 %   별 인식 알고리즘의 메인 함수.
 % % Determine where your m-file's folder is.
@@ -7,7 +7,8 @@ function [SvectorFlag,Flag,Attitude] = main_StarID(StarMat, PixThreshold, UIAxes
 % addpath(genpath(folder));
 
 Flag = 0;
-Attitude = 0;
+AttiQuaternion = [nan, nan,nan,nan];
+Attitude = struct('RA',nan,'DEC',nan,'ROT',nan);
 
 % 별 라벨링 Input은 이미지 매트릭스(흑백 0~255), 픽셀의 밝기 스레스홀드.
 [Labels, StarNum] = RegionLabeling(StarMat, PixThreshold);
@@ -59,7 +60,7 @@ if Flag
     % ImageVector 와 CatalogVector 의 형상 [ x, y, z ; x2, y2, z2 ; ...]
     % 3개의 벡터 또는 4개의 벡터행을 가지고 있음.
     [ImageVector,CatalogVector] = MakeSelectedStarVector(StarCenter,BSCatalog,DeterminedStarMap,Params);
-    Attitude = main_AttiDet(ImageVector,CatalogVector);
+    [Attitude, AttiQuaternion] = main_AttiDet(ImageVector,CatalogVector);
 end
 
 end

@@ -11,11 +11,13 @@ for i=1:N-1
     y(i) = sin(phi(i))*sin(theta(i));
     [azimuth(i),elevation(i),r(i)] = cart2sph(x(i),y(i),z(i));
     azimuth(i) = azimuth(i)*180/pi;
+    if azimuth(i) < 0
+        azimuth(i) = azimuth(i)+360;
+    end
     elevation(i) = elevation(i)*180/pi;    
 end
 M = [Num', x', y', z'];
 M2 = [Num', azimuth', elevation', Rot]; 
-
 
 filepath = '../TrackingFile/';
 filepath1 = strcat(filepath, 'TrackingFile2.txt');
