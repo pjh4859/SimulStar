@@ -14,8 +14,16 @@ epsilon = 10/3600;
 for i=1:size(StarPairAngle,1) %Size must be 3;
     Lbot = floor((cosd(StarPairAngle(i,1) + 2*epsilon) - a0)/a1);
     Ltop = ceil((cosd(StarPairAngle(i,1) - 2*epsilon) - a0)/a1);
-    Kstart = Kvector(Lbot,1)+1;
+%     Kstart = Kvector(Lbot,1)+1;
+% +1 을 하는 이유를 찾을수가 없었음...
+    Kstart = Kvector(Lbot,1);
     Kend = Kvector(Ltop,1);
+    if Kstart <=0
+        Kstart = 1;
+    end
+    if Kend > size(Kvector,1)
+        Kend = size(Kvector,1);
+    end
     switch i
         case 1
 %             StarCandi1 = Kvector(Kvector >= Kstart & Kvector <= Kend,:);
